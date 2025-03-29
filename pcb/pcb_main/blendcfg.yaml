@@ -1,0 +1,43 @@
+default:
+  SETTINGS:
+    PRJ_EXTENSION: .sch     # file extension used to derive name for generated blend file e.g. example.kicad_pro -> example.blend, type "" if unspecified
+    FAB_DIR: fab                  # default directory name containing input fabrication (gerber) files
+    DPI: 900                      # quality of bitmaps exported from Gerbers, influences board model creation time
+    DEFAULT_BRD_THICKNESS: 1.6    # used when stackup effect is turned off
+    SILKSCREEN: White             # options: White (default), Black
+    SOLDERMASK: Black             # options: Black (default), White, Green, Blue, Red
+                                  # for custom color, type pair of hex values: AABBCC, DDEEFF (colors for areas with and without copper beneath)
+    USE_INKSCAPE: true            # use when board has overlapping holes footprints, sometimes fixes mesh generation
+
+    BOM_DIR: doc
+    MODEL_LIBRARY_PATHS:            # default paths to model library folders, can be overridden by MODEL_LIBRARY_PATHS
+      - $HOME/.local/share/antmicro-blender-models/
+      - $HOME/.local/share/antmicro-hardware-components/
+    APPLY_TRANSFORMS: true
+  GERBER_FILENAMES:
+    EDGE_CUTS: '*-Edge_Cuts.gbr'
+    PTH: '*-PTH-drl.gbr'
+    NPTH: '*-NPTH-drl.gbr'
+    IN: '*-In*.gbr'
+    FRONT_SILK: '*-F_Silkscreen.gbr'
+    BACK_SILK: '*-B_Silkscreen.gbr'
+    FRONT_MASK: '*-F_Mask.gbr'
+    BACK_MASK: '*-B_Mask.gbr'
+    FRONT_CU: '*-F_Cu.gbr'
+    BACK_CU: '*-B_Cu.gbr'
+    FRONT_FAB: '*-F_Fab.gbr'
+    BACK_FAB: '*-B_Fab.gbr'
+    FRONT_PASTE: '*-F_Paste.gbr'
+    BACK_PASTE: '*-B_Paste.gbr'
+
+  EFFECTS:
+    STACKUP: false                 # if True, requires stackup.json output
+    SOLDER: true                  # generates solder on pads of mounted components, requires solder paste gerbers
+
+    SHOW_MECHANICAL: false
+    SHOW_MARKINGS: true
+  STAGES:
+    - CLEARSCENE:
+    - GERBCONVERT:
+    - BOARD:
+    - VERSIONSTAMPER:
