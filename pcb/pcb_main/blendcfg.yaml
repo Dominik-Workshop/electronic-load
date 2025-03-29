@@ -13,6 +13,7 @@ default:
     MODEL_LIBRARY_PATHS:            # default paths to model library folders, can be overridden by MODEL_LIBRARY_PATHS
       - $HOME/.local/share/antmicro-blender-models/
       - $HOME/.local/share/antmicro-hardware-components/
+      - $HOME/antmicro/hardware-components/
     APPLY_TRANSFORMS: true
   GERBER_FILENAMES:
     EDGE_CUTS: '*-Edge_Cuts.gbr'
