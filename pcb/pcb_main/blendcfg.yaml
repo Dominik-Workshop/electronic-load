@@ -14,7 +14,17 @@ default:
       - $HOME/.local/share/antmicro-blender-models/
       - $HOME/.local/share/antmicro-hardware-components/
       - $HOME/antmicro/hardware-components/
+      - $HOME/projects/electronic-load/3d_models
     APPLY_TRANSFORMS: true
+    RENDER_DIR: renders
+    ANIMATION_DIR: animations
+    IMAGE_FORMAT:                     # list of formats for static image outputs (all supported by Blender)
+      - PNG
+    VIDEO_FORMAT:                     # list of formats for static image outputs (GIF, AVI, WEBM, MP4, MPEG)
+      - WEBM
+    THUMBNAILS: false
+    KEEP_FRAMES: false
+    SAVE_SCENE: false
   GERBER_FILENAMES:
     EDGE_CUTS: '*-Edge_Cuts.gbr'
     PTH: '*-PTH-drl.gbr'
@@ -42,3 +52,55 @@ default:
     - GERBCONVERT:
     - BOARD:
     - VERSIONSTAMPER:
+  RENDERER:
+    SAMPLES: 32                       # Cycles renderer samples, influence quality of final render and rendering times
+    FPS: 25                           # animation frames per second value 
+    IMAGE_WIDTH: 4096                 # rendered image width
+    IMAGE_HEIGHT: 4096                # rendered image height
+    VIDEO_WIDTH: 740                  # sequenced animation width
+    VIDEO_HEIGHT: 740                 # sequenced animation height
+    THUMBNAIL_WIDTH: 320              # thumbnail image copy width
+    THUMBNAIL_HEIGHT: 320             # thumbnail image copy height
+
+  SCENE:
+    LIGHTS_COLOR: FFFFFF              # area lights color (accepts hex values, for example AABBCC) 
+    LIGHTS_INTENSITY: 1.0             # area lights intensity float multiplier, set to 0.0 to disable area lights
+    HDRI_INTENSITY: 0.5               # HDRI background intensity float multiplier, set to 0.0 to disable HDRI 
+    DEPTH_OF_FIELD: true              # enable depth of field for all cameras
+    FOCAL_RATIO: auto                 # cameras' focal ratio for depth of field effect, (accepts fractions like f/4, 1/4 or floats, type "auto" for calculated value)
+    ZOOM_OUT: 1.05                    # cameras' zoom applied when framing rendered object (zoom_out < 1.0 - zoom in, zoom_out > 1.0 - zoom out)
+    LED_ON: true                      # enable light emitting shaders on model
+    ADJUST_POS: true                  # enable automatic position adjustments based on model type before rendering
+    ORTHO_CAM: false                  # enables orthographic-like camera mode for all cameras
+    RENDERED_OBJECT:                  # specify part of the model to be used as render object, uses "Object/<name>" or "Collection/<name>" syntax
+
+  BACKGROUNDS:                        # background selection
+    LIST:                             # name of .blend file from src/pcbooth/templates/backgrounds directory or "transparent"                                         
+      - paper_black
+
+  CAMERAS:                            # camera selection
+    TOP: true
+    ISO: true
+    FRONT: true
+    LEFT: true
+    RIGHT: true
+    PHOTO1: true
+    PHOTO2: true
+    CUSTOM: false
+
+  POSITIONS:                          # model position selection
+    TOP: true
+    BOTTOM: false
+    REAR: false
+
+  OUTPUTS:                            # rendering jobs list
+    - STATIC:
+demo:
+  CAMERAS:
+    TOP: true
+    PHOTO1: true
+  POSITIONS:
+    TOP: true
+  OUTPUTS:
+    - STATIC:
+    - CAMERATRANSITION:
