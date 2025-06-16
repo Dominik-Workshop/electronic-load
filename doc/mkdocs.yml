@@ -1,4 +1,6 @@
 site_name: Electronic load
+repo_url: https://github.com/Dominik-Workshop/electronic-load
+repo_name: GitHub
 docs_dir: source
 theme:
   name: material

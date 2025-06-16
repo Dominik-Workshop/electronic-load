@@ -1,18 +1,50 @@
-# Electronic DC Load
+# DC Electronic Load
 
+## 🎥 Introduction
 
-This project is an open-source programmable electronic load for DC sources such as power supplies and batteries. It simulates various load conditions, enabling performance and durability testing. 
+Watch a full project overview on [YouTube](https://youtu.be/NScaRQj53l0).
 
-![Load front photo](img/front-no-background.png)
+This open-source programmable **DC electronic load** is designed to test power supplies, batteries, and other DC sources. It simulates a variety of load conditions to evaluate performance and reliability.
 
-Designed with affordability and practicality in mind, the device offers features typically found in more expensive commercial solutions. It includes protections against overcurrent and over-discharge, a user-friendly interface, and software control capabilities.
+The design was inspired by several community projects, especially [Scullcom’s Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk).
 
-## Key Features
+![Load front photo](img/front-no-background.png){ width="80%" style="display: block; margin: auto;" }
 
-- Maximum current: 8 A
-- Maximum voltage: 50 V
-- Power dissipation: up to 200 W (continuous) / 300 W (short term)
-- Multiple operating modes: constant current, power, resistance, step response, and battery test
-- Built-in protections: thermal, current, and voltage cutoffs
-- PC application for real-time monitoring and control
-- Easy to build with open-source schematics and firmware
+## ⚙️ Key Features
+
+- Supports up to **50 V** and **8 A** input
+- Power dissipation: **200 W** continuous / **300 W** peak
+- **Five operating modes**: constant current, power, resistance, step load, battery test
+- **Remote voltage sensing**
+- **User-friendly interface**: rotary encoder + numeric keypad
+- **PC application** for real-time monitoring, control, and data logging
+- **Fully open-source**: hardware, firmware, and software
+
+## 🛠️ Tools Used
+
+<table style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr style="border-bottom: 2px solid #ccc;">
+      <th style="text-align: left; padding: 8px;">Tool</th>
+      <th style="text-align: left; padding: 8px;">Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 8px;"><strong>Autodesk Eagle</strong></td>
+      <td style="padding: 8px;">Schematic and PCB design</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>Fusion 360</strong></td>
+      <td style="padding: 8px;">3D modeling for the enclosure and front panel</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>PlatformIO + VS Code</strong></td>
+      <td style="padding: 8px;">Firmware development and microcontroller programming</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;"><strong>Qt (C++ with Qt)</strong></td>
+      <td style="padding: 8px;">Desktop application for monitoring and control</td>
+    </tr>
+  </tbody>
+</table>
