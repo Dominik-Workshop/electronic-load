@@ -1,0 +1,29 @@
+site_name: Electronic load
+docs_dir: source
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  palette:
+    scheme: slate
+    primary: teal
+    accent: lime
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Overview: index.md
+  - Hardware Design: hardware-design.md
+  - Software & Firmware: software.md
+  - Testing & Performance: testing-performance.md
