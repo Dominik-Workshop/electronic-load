@@ -3,7 +3,7 @@
 
 This project is an open-source programmable electronic load for DC sources such as power supplies and batteries. It simulates various load conditions, enabling performance and durability testing. 
 
-![load](img/front-no-background.png)
+![Load front photo](img/front-no-background.png)
 
 Designed with affordability and practicality in mind, the device offers features typically found in more expensive commercial solutions. It includes protections against overcurrent and over-discharge, a user-friendly interface, and software control capabilities.
 

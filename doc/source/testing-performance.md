@@ -62,11 +62,11 @@ Step changes in load (1–3 A, 3–5 A, 6–8 A) showed fast transitions with no
 
 === "Transients 24V"
     
-    ![load](img/transients-24V.png)
+    ![Transient 20V](img/transients-24V.png)
 
 === "Transients 5V"
 
-    ![load](img/transients-5V.png)
+    ![Transient 5V](img/transients-5V.png)
 
 
 

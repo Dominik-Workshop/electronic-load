@@ -21,6 +21,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
 
 nav:
   - Overview: index.md
