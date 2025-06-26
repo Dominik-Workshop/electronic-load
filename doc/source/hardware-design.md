@@ -1,25 +1,29 @@
 ## Electronics
 ### Architecture Overview
 
-![Electronics block diagram](img/block_diagram.drawio.svg)
+![Electronics block diagram](img/block_diagram.drawio.svg){#fig:block-diagram}
 /// caption
 Electronics block diagram
 ///
 
+The system's architecture is orchestrated by an `ATmega328P` microcontroller. It interfaces with several key components via I2C, including a 12-bit `MCP4725` DAC to set the load current, a 16-bit `ADS1115` ADC to measure voltage and current, and an `MCP79410` RTC for time-critical operations like battery capacity testing.
 
-The system is built around a electronic design, centered on an ATmega328P microcontroller. It uses a DAC to control current draw, and an ADC to monitor voltage and current. The power stage is built using power MOSFETs and shunt resistors.
+The core of the load is the Constant Current Sink, controlled by the DAC and built around `AD8630` operational amplifier and `IRFP250` power MOSFETs. The ADC measures the current flowing through this sink and the voltage at the input terminals. A switch, controlled from the front panel, allows the voltage measurement to be taken either from the main power terminals or from the remote sense terminals via a differential amplifier built on an `OPA277` op-amp. User interaction is managed through a rotary encoder, keypad, and a 4x20 LCD display, while PC communication is handled by a dedicated USB-to-UART converter board.
 
-### PCBs:
-- **Main board**: responsible for main funcionalities of the load
+A transformer provides AC power, which is converted by the internal power supply section into three DC rails: **+12V** (for the cooling fan), **+5V** (for logic and analog circuits), and **-5V** (for the symmetrical supply of the differential amplifier).
 
-![Main PCB photo](img/main-pcb-cear-background.png){: style="width:90%"}
+### PCBs
+The system's electronics are distributed across three distinct PCBs. The functional blocks residing on each board are color-coded for clarity in the [*Electronics block diagram*](#fig:block-diagram) shown above.
 
+- **Main board**: This two-layer PCB performs all core control, measurement, and power handling functions of the electronic load.
 
-- **Front board**: responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals
+![Main PCB photo](img/main-pcb-cear-background.png){ width="80%" style="display: block; margin: auto;" }
+
+- **Front board**: This single-layer PCB functions as the user interface board, handling manual controls and routing for the voltage measurement signals.
 
 ![Front PCB photo](img/front-pcb-clear-background.png){ width="40%" style="display: block; margin: auto;" }
 
-- **Converter board**: responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals 
+- **Converter board**: Acts as a dedicated communication bridge for PC control, data acquisition and allows for programming of the main microcontroller. This was implemented cost-effectively by using a modified Arduino Nano board with its original microcontroller desoldered, leaving only the `CH340` USB-to-serial IC functional.
 
 === "Angle view"
 
@@ -34,26 +38,50 @@ The system is built around a electronic design, centered on an ATmega328P microc
 
     ![Arduino bottom view](img/arduino-bottom.png){ width="60%" style="display: block; margin: auto;" }
 
-### Inputs and Interfaces
 
-- **Power input**: Up to 50 V DC, 8 A
-- **Remote voltage sensing**: Compensates cable losses
-- **Trigger input**: 0–5 V for switching load states in step response mode
-- **Power input (AC)**: 230 V AC, powering the internal transformer
+### Input specifications
 
-### User Interface
+<div class="grid cards" markdown>
 
-- Rotary encoder with push-button
-- Numeric keypad
-- LCD display for measurements and settings
-- Mode and source selection switches
+-   __Load power input [*(Front panel)*](#fig:front-panel-wireframe)__
+
+    ---
+    - **Max voltage:** 50V DC
+    - **Max current:** 8A
+    - **Max dissipated power:** 300W (10 min)¹ / 200W (cont.)²
+
+-   __Remote voltage sense input [*(Front panel)*](#fig:front-panel-wireframe)__
+
+    ---
+    - **Max voltage:** 50V DC
+
+-   __Mains power input [*(Back panel)*](#fig:back-panel-wireframe)__
+
+    ---
+    - **Voltage:** 230V AC
+    - **Max power consumption:** 10W
+
+-   __Trigger input [*(Front panell)*](#fig:front-panel-wireframe)__
+
+    ---
+    - **Max voltage:** 5V DC
+
+</div>
+
+¹ *Assumes ambient temperature of 25°C.* <br>
+² *Assumes an initial heatsink temperature of 25°C.*
 
 ## Mechanical
 
-![Front panel wireframe](img/front-panel-wireframe.png)
+![Front panel wireframe](img/front-panel-wireframe.png){#fig:front-panel-wireframe}
+/// caption
+Front panel wireframe
+///
 
-![Back panel wireframe](img/back-wireframe.png)
-
+![Back panel wireframe](img/back-wireframe.png){#fig:back-panel-wireframe}
+/// caption
+Back panel wireframe
+///
 
 ### Cooling
 
