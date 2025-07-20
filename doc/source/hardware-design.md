@@ -1,4 +1,64 @@
-## Electronics
+## 🔩 Mechanical
+
+### Panel Layouts
+The diagrams below show the layout of all external controls and connectors:
+
+![Annotated Front Panel Wireframe](img/front-panel-wireframe.png){#fig:front-panel-wireframe width="80%" style="display: block; margin: auto;"}
+/// caption
+Annotated Front Panel Wireframe
+///
+
+![Annotated Back Panel Wireframe](img/back-wireframe.png){#fig:back-panel-wireframe width="80%" style="display: block; margin: auto;"}
+/// caption
+Annotated Back Panel Wireframe
+///
+
+### Enclosure and Cooling
+The enclosure is a hybrid construction designed for durability and ease of assembly. The main chassis is formed from 1mm thick sheet steel, which was CNC laser-cut and then bent into shape. This provides a sturdy frame for all internal components.
+
+The front panel is a custom 3D-printed part, allowing for precise mounting of the display, keypad, switches, and connectors.
+
+Heat from the power MOSFETs is dissipated by a large, tunnel-style aluminum heatsink, which is actively cooled by a temperature-controlled fan. The complete internal assembly can be seen in the image below.
+
+![Internal view of the electronic load](img/insides-no-background.png){#fig:load-insides width="80%" style="display: block; margin: auto;"}
+/// caption
+Internal view of the electronic load
+///
+
+## ⚡ Electronics
+
+### Input Specifications
+
+<div class="grid cards" markdown>
+
+-   __Load power input [*(Front panel)*](#fig:front-panel-wireframe)__
+
+    ---
+    - **Max voltage:** 50V DC
+    - **Max current:** 8A
+    - **Max dissipated power:** 300W (10 min)¹ / 200W (cont.)²
+
+-   __Remote voltage sense input [*(Front panel)*](#fig:front-panel-wireframe)__
+
+    ---
+    - **Max voltage:** 50V DC
+
+-   __Mains power input [*(Back panel)*](#fig:back-panel-wireframe)__
+
+    ---
+    - **Voltage:** 230V AC
+    - **Max power consumption:** 10W
+
+-   __Trigger input [*(Front panell)*](#fig:front-panel-wireframe)__
+
+    ---
+    - **Max voltage:** 5V DC
+
+</div>
+
+¹ *Assumes ambient temperature of 25°C.* <br>
+² *Assumes an initial heatsink temperature of 25°C.*
+
 ### Architecture Overview
 
 ![Electronics block diagram](img/block_diagram.drawio.svg){#fig:block-diagram}
@@ -37,57 +97,3 @@ The system's electronics are distributed across three distinct PCBs. The functio
 === "Bottom view"
 
     ![Arduino bottom view](img/arduino-bottom.png){ width="60%" style="display: block; margin: auto;" }
-
-
-### Input specifications
-
-<div class="grid cards" markdown>
-
--   __Load power input [*(Front panel)*](#fig:front-panel-wireframe)__
-
-    ---
-    - **Max voltage:** 50V DC
-    - **Max current:** 8A
-    - **Max dissipated power:** 300W (10 min)¹ / 200W (cont.)²
-
--   __Remote voltage sense input [*(Front panel)*](#fig:front-panel-wireframe)__
-
-    ---
-    - **Max voltage:** 50V DC
-
--   __Mains power input [*(Back panel)*](#fig:back-panel-wireframe)__
-
-    ---
-    - **Voltage:** 230V AC
-    - **Max power consumption:** 10W
-
--   __Trigger input [*(Front panell)*](#fig:front-panel-wireframe)__
-
-    ---
-    - **Max voltage:** 5V DC
-
-</div>
-
-¹ *Assumes ambient temperature of 25°C.* <br>
-² *Assumes an initial heatsink temperature of 25°C.*
-
-## Mechanical
-
-![Front panel wireframe](img/front-panel-wireframe.png){#fig:front-panel-wireframe}
-/// caption
-Front panel wireframe
-///
-
-![Back panel wireframe](img/back-wireframe.png){#fig:back-panel-wireframe}
-/// caption
-Back panel wireframe
-///
-
-### Cooling
-
-A temperature-controlled fan manages heat dissipation, automatically adjusting speed based on heatsink temperature. Over-temperature protection shuts off the load above 50°C.
-
-### Enclosure
-
-- Custom-made metal case (CNC cut and bent steel)
-- 3D-printed front panel for easy mounting of connectors and display
