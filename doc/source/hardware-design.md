@@ -83,11 +83,11 @@ The system's electronics are distributed across three distinct PCBs. The functio
 
 ![Front PCB photo](img/front-pcb-clear-background.png){ width="40%" style="display: block; margin: auto;" }
 
-- **Converter board**: Acts as a dedicated communication bridge for PC control, data acquisition and allows for programming of the main microcontroller. This was implemented cost-effectively by using a modified Arduino Nano board with its original microcontroller desoldered, leaving only the `CH340` USB-to-serial IC functional.
+- <span id="fig:converter-board"></span>**Converter board**: Acts as a dedicated communication bridge for PC control, data acquisition and allows for programming of the main microcontroller. This was implemented cost-effectively by using a modified Arduino Nano board with its original microcontroller desoldered, leaving only the `CH340` USB-to-serial IC functional.
 
 === "Angle view"
 
-    ![Arduino angle view](img/arduino-top-angle.png){#fig:converter-board width="60%" style="display: block; margin: auto;" }
+    ![Arduino angle view](img/arduino-top-angle.png){ width="60%" style="display: block; margin: auto;" }
 
 
 === "Top view"
