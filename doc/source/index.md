@@ -1,50 +1,41 @@
-# DC Electronic Load
+# DIY Electronic Load Documentation
 
-## 🎥 Introduction
+Welcome to the official documentation for the **DIY Electronic Load** project. Here you'll find the key information needed to understand the design, and to build and use your own device.
 
-Watch a full project overview on [YouTube](https://youtu.be/NScaRQj53l0).
+![Hero Image](img/front-no-background.png){ width="80%" style="display: block; margin: auto;" }
 
-This open-source programmable **DC electronic load** is designed to test power supplies, batteries, and other DC sources. It simulates a variety of load conditions to evaluate performance and reliability.
+---
 
-The design was inspired by several community projects, especially [Scullcom’s Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk).
+## Table of Contents
 
-![Load front photo](img/front-no-background.png){ width="80%" style="display: block; margin: auto;" }
+<div class="grid cards" markdown>
 
-## ⚙️ Key Features
+-   __Project Overview__
 
-- Supports up to **50 V** and **8 A** input
-- Power dissipation: **200 W** continuous / **300 W** peak
-- **Five operating modes**: constant current, power, resistance, step load, battery test
-- **Remote voltage sensing**
-- **User-friendly interface**: rotary encoder + numeric keypad
-- **PC application** for real-time monitoring, control, and data logging
-- **Fully open-source**: hardware, firmware, and software
+    ---
+    Learn about the project's goals, key features, and the tools used in its creation.
 
-## 🛠️ Tools Used
+    [:octicons-arrow-right-24: Read the Overview](overview.md)
 
-<table style="width: 100%; border-collapse: collapse;">
-  <thead>
-    <tr style="border-bottom: 2px solid #ccc;">
-      <th style="text-align: left; padding: 8px;">Tool</th>
-      <th style="text-align: left; padding: 8px;">Usage</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 8px;"><strong>Autodesk Eagle</strong></td>
-      <td style="padding: 8px;">Schematic and PCB design</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>Fusion 360</strong></td>
-      <td style="padding: 8px;">3D modeling for the enclosure and front panel</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>PlatformIO + VS Code</strong></td>
-      <td style="padding: 8px;">Firmware development and microcontroller programming</td>
-    </tr>
-    <tr>
-      <td style="padding: 8px;"><strong>Qt (C++ with Qt)</strong></td>
-      <td style="padding: 8px;">Desktop application for monitoring and control</td>
-    </tr>
-  </tbody>
-</table>
+-   __Hardware Design__
+
+    ---
+    A deep dive into the schematics, PCB layouts, and mechanical design of the enclosure.
+
+    [:octicons-arrow-right-24: Explore the Hardware](hardware-design.md)
+
+-   __Software & Firmware__
+
+    ---
+    Instructions for programming the microcontroller, calibrating the device, and using the PC application.
+
+    [:octicons-arrow-right-24: View Software & Firmware Docs](software.md)
+
+-   __Testing & Performance__
+
+    ---
+    See the results of functional tests and performance measurements for the completed device.
+
+    [:octicons-arrow-right-24: See Performance Data](testing-performance.md)
+
+</div>
