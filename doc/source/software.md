@@ -85,16 +85,31 @@ Follow these steps to enable the calibration mode:
 !!! danger "Important"
     After you have completed the calibration, you **must** revert these changes (re-comment the calibration block and un-comment the mode you disabled) and re-upload the firmware to restore full functionality.
 
-## PC Application
+## 🖥️ PC Application
 
-![PC app](img/desktop-app-battery-discharge.png)
+To complement the electronic load, a dedicated desktop application is available. The application currently focuses on enhancing the **Battery Test Mode**, with potential support for other operating modes in future updates.
 
-Written in C++ with Qt, the application allows:
+![PC Application Interface](img/desktop-app-battery-discharge.png){#fig:pc-app}
+/// caption
+The PC application interface during a battery discharge test.
+///
 
-- Starting/stopping the load
-- Setting current and cutoff voltage
-- Monitoring voltage, current, and battery capacity
-- Saving graphs as JPG or CSV
-- Multi-language UI: English, Polish, German
+### Key Features
 
-Communication with the load is via USB using a serial port.
+- **Remote Control:** Set the battery discharge current and the cut-off voltage directly from the application.
+- **Real-Time Visualization:** View live plots of the battery's voltage and current throughout the discharge test.
+- **Data Export:** Save the recorded discharge graph as a JPG image or export the raw measurement data as a CSV file for further analysis in other software.
+- **Multi-Language Support:** The user interface is available in English, Polish, and German.
+
+### Technical Details
+
+The application communicates with the electronic load via a serial connection through the [Micro USB port](hardware-design.md#fig:back-panel-wireframe). It was developed in C++ using the Qt framework, which allows it to be cross-platform.
+
+### Availability
+
+!!! tip "Windows Users"
+    A pre-compiled, ready-to-use version for Windows is available for convenience in the project repository at:
+    `desktop_app/release/windows-64bit/electronic_load_control_app.exe`
+
+!!! info "Linux and Other OS Users"
+    Since the application is built with the cross-platform Qt framework, it can be compiled for other operating systems like Linux. The full source code is available in the repository for users who wish to build it themselves. Pre-compiled binaries for Linux may be added in the future.
