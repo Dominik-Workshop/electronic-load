@@ -77,7 +77,7 @@ The system's electronics are distributed across three distinct PCBs. The functio
 
 - **Main board**: This two-layer PCB performs all core control, measurement, and power handling functions of the electronic load.
 
-![Main PCB photo](img/main-pcb-cear-background.png){ width="80%" style="display: block; margin: auto;" }
+![Main PCB photo](img/main-pcb-cear-background.png){#fig:main-board width="80%" style="display: block; margin: auto;" }
 
 - **Front board**: This single-layer PCB functions as the user interface board, handling manual controls and routing for the voltage measurement signals.
 
@@ -87,7 +87,7 @@ The system's electronics are distributed across three distinct PCBs. The functio
 
 === "Angle view"
 
-    ![Arduino angle view](img/arduino-top-angle.png){ width="60%" style="display: block; margin: auto;" }
+    ![Arduino angle view](img/arduino-top-angle.png){#fig:converter-board width="60%" style="display: block; margin: auto;" }
 
 
 === "Top view"
