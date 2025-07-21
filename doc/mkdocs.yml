@@ -1,0 +1,41 @@
+site_name: Electronic load
+repo_url: https://github.com/Dominik-Workshop/electronic-load
+repo_name: GitHub
+docs_dir: source
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  palette:
+    scheme: slate
+    primary: teal
+    accent: lime
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Overview: overview.md
+  - Hardware Design: hardware-design.md
+  - Software & Firmware: software.md
+  - Testing & Performance: testing-performance.md
