@@ -28,6 +28,9 @@ markdown_extensions:
   - md_in_html
   - pymdownx.blocks.caption
 
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Overview: index.md
   - Hardware Design: hardware-design.md
