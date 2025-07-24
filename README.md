@@ -52,7 +52,7 @@ This project was inspired by many electronic loads, with the primary inspiration
 ### PCBs:
 - Main board: responsible for main funcionalities of the load
 
-<img align="center" width=90% src="images/renders/main_PCB_front_angle.png"> 
+<img align="center" width=90% src="images/renders/main-PCB-rightT_transparent.png"> 
 
 - Front board: responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals
 
