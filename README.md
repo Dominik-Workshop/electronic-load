@@ -9,7 +9,6 @@ Commercially available electronic loads often come with a hefty price tag, so I 
 This project was inspired by many electronic loads, with the primary inspiration being [Scullcom's Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
 
 ### Key Features
-
 - Supports up to **50 V** and **8 A** input
 - Power dissipation: **200 W** continuous / **300 W** peak
 - **Five operating modes**: constant current, power, resistance, step load, battery test
@@ -49,10 +48,11 @@ The case for this project is made with 1mm thick bent sheet metal, with a 3D pri
 <img align="center" width=90% src="images/renders/electronic_load_back.png"> 
 
 ## PC App
-<img align="center" src="images/screenshots/desktop_app_battery_discharge.png"> 
-The app is currently available for Windows only. To run it, simply double-click on
+To complement the electronic load, a dedicated desktop application is available. The application currently focuses on enhancing the **Battery Test Mode**, with potential support for other operating modes in future updates.
 
-`\desktop_app\release\windows-64bit\electronic_load_control_app.exe`
+<img align="center" src="images/screenshots/desktop_app_battery_discharge.png"> 
+
+A pre-compiled, ready-to-use version for Windows is available for convenience in the project repository at: `desktop_app/release/windows-64bit/electronic_load_control_app.exe`
 
 ## Accuracy Measurements
 <details>
