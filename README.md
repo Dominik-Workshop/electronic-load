@@ -6,43 +6,27 @@
 
 ## Overview
 Commercially available electronic loads often come with a hefty price tag, so I decided to build my own. 
-This project was inspired by many electronic loads, with the primary inspiration being Scullcom's Electronic DC Load. You can view it [here](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
+This project was inspired by many electronic loads, with the primary inspiration being [Scullcom's Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
+
+### Key features
+
+- Supports up to **50 V** and **8 A** input
+- Power dissipation: **200 W** continuous / **300 W** peak
+- **Five operating modes**: constant current, power, resistance, step load, battery test
+- **Remote voltage sensing**
+- **User-friendly interface**: rotary encoder + numeric keypad
+- **PC application** for real-time monitoring, control, and data logging
+- **Fully open-source**: hardware, firmware, and software
 
 ### Learn more
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtu.be/NScaRQj53l0)<br>
 [![Documentation](https://img.shields.io/badge/Documentation-blue.svg?style=for-the-badge&logo=readthedocs&logoColor=white)](https://dominik-workshop.github.io/electronic-load)
 
+## Project status
+✅ **Ready for construction!** <br>
+The project is poised for construction and operational use. However, there might be some occasional updates to address minor bugs, introduce new features, or improve the overall user experience. Stay tuned for further developments!
 
-
-
-## Project status: :heavy_check_mark: ready for construction!
-The project is poised for construction and operational use. However, ongoing development persists, addressing minor bug fixes and introducing new features. Stay tuned for updates!
-
-
-### Project goals:
-- **300 W power dissipation**
-
-- **up to 8A and 50V** (obeying the 300W limit)
-
-- **Remote voltage sensing option**
-
-- **Easy to input values:** you can use an encoder as well as a keypad
-
-- **5 modes of operation**
-  - **Constant current mode**
-
-  - **Constant power mode**
-
-  - **Constant resistance mode**
-
-  - **Transient response mode**
-
-  - **Battery testing mode**
-
-- **Nice to look at:** doesn't look like a poor DIY build
-
-
-## Electronics:
+## Electronics
 ### Block diagram
 
 ![Alt text](./pcb/block_diagram.drawio.svg)
