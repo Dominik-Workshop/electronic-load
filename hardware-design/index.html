@@ -1,0 +1,700 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../software/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Hardware Design - Electronic load</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mechanical" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Electronic load" class="md-header__button md-logo" aria-label="Electronic load" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Electronic load
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dominik-Workshop/electronic-load" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Hardware Design
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../software/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Software & Firmware
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../testing-performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Testing & Performance
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Electronic load" class="md-nav__button md-logo" aria-label="Electronic load" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Electronic load
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dominik-Workshop/electronic-load" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Hardware Design
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Design
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mechanical" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔩 Mechanical
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔩 Mechanical">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel Layouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enclosure-and-cooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enclosure and Cooling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#electronics" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Electronics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Electronics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Specifications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcbs" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCBs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Software & Firmware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing & Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Hardware Design</h1>
+
+<h2 id="mechanical">🔩 Mechanical</h2>
+<h3 id="panel-layouts">Panel Layouts</h3>
+<p>The diagrams below show the layout of all external controls and connectors:</p>
+<figure>
+<p><img alt="Annotated Front Panel Wireframe" id="fig:front-panel-wireframe" src="../img/front-panel-wireframe.png" style="display: block; margin: auto;" width="80%" /></p>
+<figcaption>
+<p>Annotated Front Panel Wireframe</p>
+</figcaption>
+</figure>
+<figure>
+<p><img alt="Annotated Back Panel Wireframe" id="fig:back-panel-wireframe" src="../img/back-wireframe.png" style="display: block; margin: auto;" width="80%" /></p>
+<figcaption>
+<p>Annotated Back Panel Wireframe</p>
+</figcaption>
+</figure>
+<h3 id="enclosure-and-cooling">Enclosure and Cooling</h3>
+<p>The enclosure is a hybrid construction designed for durability and ease of assembly. The main chassis is formed from 1mm thick sheet steel, which was CNC laser-cut and then bent into shape. This provides a sturdy frame for all internal components.</p>
+<p>The front panel is a custom 3D-printed part, allowing for precise mounting of the display, keypad, switches, and connectors.</p>
+<p>Heat from the power MOSFETs is dissipated by a large, tunnel-style aluminum heatsink, which is actively cooled by a temperature-controlled fan. The complete internal assembly can be seen in the image below.</p>
+<figure>
+<p><img alt="Internal view of the electronic load" id="fig:load-insides" src="../img/insides-no-background.png" style="display: block; margin: auto;" width="80%" /></p>
+<figcaption>
+<p>Internal view of the electronic load</p>
+</figcaption>
+</figure>
+<h2 id="electronics">⚡ Electronics</h2>
+<h3 id="input-specifications">Input Specifications</h3>
+<div class="grid cards">
+<ul>
+<li>
+<p><strong>Load power input <a href="#fig:front-panel-wireframe"><em>(Front panel)</em></a></strong></p>
+<hr />
+<ul>
+<li><strong>Max voltage:</strong> 50V DC</li>
+<li><strong>Max current:</strong> 8A</li>
+<li><strong>Max dissipated power:</strong> 300W (10 min)¹ / 200W (cont.)²</li>
+</ul>
+</li>
+<li>
+<p><strong>Remote voltage sense input <a href="#fig:front-panel-wireframe"><em>(Front panel)</em></a></strong></p>
+<hr />
+<ul>
+<li><strong>Max voltage:</strong> 50V DC</li>
+</ul>
+</li>
+<li>
+<p><strong>Mains power input <a href="#fig:back-panel-wireframe"><em>(Back panel)</em></a></strong></p>
+<hr />
+<ul>
+<li><strong>Voltage:</strong> 230V AC</li>
+<li><strong>Max power consumption:</strong> 10W</li>
+</ul>
+</li>
+<li>
+<p><strong>Trigger input <a href="#fig:front-panel-wireframe"><em>(Front panell)</em></a></strong></p>
+<hr />
+<ul>
+<li><strong>Max voltage:</strong> 5V DC</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>¹ <em>Assumes ambient temperature of 25°C.</em> <br>
+² <em>Assumes an initial heatsink temperature of 25°C.</em></p>
+<h3 id="architecture-overview">Architecture Overview</h3>
+<figure>
+<p><img alt="Electronics block diagram" id="fig:block-diagram" src="../img/block_diagram.drawio.svg" /></p>
+<figcaption>
+<p>Electronics block diagram</p>
+</figcaption>
+</figure>
+<p>The system's architecture is orchestrated by an <code>ATmega328P</code> microcontroller. It interfaces with several key components via I2C, including a 12-bit <code>MCP4725</code> DAC to set the load current, a 16-bit <code>ADS1115</code> ADC to measure voltage and current, and an <code>MCP79410</code> RTC for time-critical operations like battery capacity testing.</p>
+<p>The core of the load is the Constant Current Sink, controlled by the DAC and built around <code>AD8630</code> operational amplifier and <code>IRFP250</code> power MOSFETs. The ADC measures the current flowing through this sink and the voltage at the input terminals. A switch, controlled from the front panel, allows the voltage measurement to be taken either from the main power terminals or from the remote sense terminals via a differential amplifier built on an <code>OPA277</code> op-amp. User interaction is managed through a rotary encoder, keypad, and a 4x20 LCD display, while PC communication is handled by a dedicated USB-to-UART converter board.</p>
+<p>A transformer provides AC power, which is converted by the internal power supply section into three DC rails: <strong>+12V</strong> (for the cooling fan), <strong>+5V</strong> (for logic and analog circuits), and <strong>-5V</strong> (for the symmetrical supply of the differential amplifier).</p>
+<h3 id="pcbs">PCBs</h3>
+<p>The system's electronics are distributed across three distinct PCBs. The functional blocks residing on each board are color-coded for clarity in the <a href="#fig:block-diagram"><em>Electronics block diagram</em></a> shown above.</p>
+<ul>
+<li><strong>Main board</strong>: This two-layer PCB performs all core control, measurement, and power handling functions of the electronic load.</li>
+</ul>
+<p><img alt="Main PCB photo" id="fig:main-board" src="../img/main-pcb-cear-background.png" style="display: block; margin: auto;" width="80%" /></p>
+<ul>
+<li><strong>Front board</strong>: This single-layer PCB functions as the user interface board, handling manual controls and routing for the voltage measurement signals.</li>
+</ul>
+<p><img alt="Front PCB photo" src="../img/front-pcb-clear-background.png" style="display: block; margin: auto;" width="40%" /></p>
+<ul>
+<li><span id="fig:converter-board"></span><strong>Converter board</strong>: Acts as a dedicated communication bridge for PC control, data acquisition and allows for programming of the main microcontroller. This was implemented cost-effectively by using a modified Arduino Nano board with its original microcontroller desoldered, leaving only the <code>CH340</code> USB-to-serial IC functional.</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Angle view</label><label for="__tabbed_1_2">Top view</label><label for="__tabbed_1_3">Bottom view</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="Arduino angle view" src="../img/arduino-top-angle.png" style="display: block; margin: auto;" width="60%" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="Arduino top view" src="../img/arduino-top.png" style="display: block; margin: auto;" width="63%" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="Arduino bottom view" src="../img/arduino-bottom.png" style="display: block; margin: auto;" width="60%" /></p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>

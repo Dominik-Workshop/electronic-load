@@ -1,0 +1,708 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../hardware-design/">
+      
+      
+        <link rel="next" href="../testing-performance/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Software & Firmware - Electronic load</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#microcontroller-firmware" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Electronic load" class="md-header__button md-logo" aria-label="Electronic load" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Electronic load
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Software & Firmware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dominik-Workshop/electronic-load" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hardware-design/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Hardware Design
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Software & Firmware
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../testing-performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Testing & Performance
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Electronic load" class="md-nav__button md-logo" aria-label="Electronic load" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Electronic load
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dominik-Workshop/electronic-load" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Software & Firmware
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Software & Firmware
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#microcontroller-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      💾 Microcontroller Firmware
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💾 Microcontroller Firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#programming-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Programming Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calibration Procedure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pc-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      🖥️ PC Application
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ PC Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Availability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing & Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Software & Firmware</h1>
+
+<h2 id="microcontroller-firmware">💾 Microcontroller Firmware</h2>
+<p>The heart of the electronic load is the custom firmware running on its ATmega328P microcontroller.</p>
+<p>The firmware is written in C++ and was developed using <strong>Visual Studio Code</strong> with the <strong>PlatformIO</strong> extension. This setup is recommended as it simplifies managing the project's libraries and build configurations. While it's possible to adapt the project for other environments like the Arduino IDE, using PlatformIO is the most straightforward path.</p>
+<h3 id="programming-options">Programming Options</h3>
+<p>There are two methods to upload the firmware to the microcontroller:</p>
+<ul>
+<li>
+<p><strong>USB</strong></p>
+<p>This is the simplest method and uses the <a href="../hardware-design/#fig:back-panel-wireframe">Micro USB port</a> on the back panel. This connection utilizes the onboard <a href="../hardware-design/#fig:converter-board">converter board</a> to communicate with the microcontroller's TX/RX pins.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method will only work if the ATmega328P microcontroller already has an Arduino-compatible bootloader installed.</p>
+</div>
+</li>
+<li>
+<p><strong>ICSP Programmer</strong></p>
+<p>This method programs the microcontroller directly. It is the primary way to:</p>
+<ul>
+<li>Upload firmware to a microcontroller that does not have a bootloader.</li>
+<li>Burn a bootloader onto the microcontroller, which then enables the simpler USB programming method.</li>
+</ul>
+<p>This method offers two key advantages over using a bootloader. First, it frees up flash memory, which can be helpful given the memory constraints of the ATmega328P. Second, it reduces the device's startup time, as the firmware runs immediately on power-up instead of waiting for the bootloader's timeout period.</p>
+<p>The <a href="../hardware-design/#pcbs">main board</a> includes a standard 6-pin ICSP (In-Circuit Serial Programming) header for connecting an external programmer, such as a <strong>USBasp</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Uploading with ICSP erases the bootloader</p>
+<p>When you upload firmware directly using an ICSP programmer, it overwrites the entire flash memory of the microcontroller, including the bootloader. If you want to use the USB method again later, you will need to re-burn the bootloader using the ICSP programmer.</p>
+</div>
+<p>To use this method with PlatformIO, you must add the following configuration to your <code>platformio.ini</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="na">upload_protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">custom</span>
+<span class="na">upload_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">usb</span>
+<span class="na">upload_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="na">-C</span>
+<span class="w">    </span><span class="na">${platformio.packages_dir}/tool-avrdude/avrdude.conf</span>
+<span class="w">    </span><span class="na">-p</span>
+<span class="w">    </span><span class="na">$BOARD_MCU</span>
+<span class="w">    </span><span class="na">-P</span>
+<span class="w">    </span><span class="na">$UPLOAD_PORT</span>
+<span class="w">    </span><span class="na">-c</span>
+<span class="w">    </span><span class="na">usbasp</span>
+<span class="na">upload_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i</span>
+</code></pre></div>
+</li>
+</ul>
+<h3 id="calibration-procedure">Calibration Procedure</h3>
+<div class="admonition tip">
+<p class="admonition-title">Video Guide Available</p>
+<p>A complete video guide is available on YouTube. It provides a full walkthrough of the calibration procedure, including the required hardware setup, modifying the firmware, and using the on-screen menu.</p>
+<p><a href="https://www.youtube.com/watch?v=jx0t7Ovq4uw&amp;t=114s">Watch the calibration guide here</a></p>
+</div>
+<p>To ensure both measurement (ADC) and setpoint (DAC) accuracy, a calibration routine is included in the firmware.
+This procedure only needs to be performed once, as the resulting calibration values are stored permanently in the microcontroller's EEPROM.</p>
+<div class="admonition info">
+<p class="admonition-title">Memory Limitation</p>
+<p>Due to the limited flash memory on the ATmega328P, the calibration function is disabled by default to make space for all the primary operating modes. You must temporarily modify the source code to access it.</p>
+</div>
+<p>Follow these steps to enable the calibration mode:</p>
+<ol>
+<li>
+<p><strong>Enable the Calibration Menu:</strong> In the <code>main.cpp</code> source file, find and uncomment the <code>case '6'</code> block for the calibration function:</p>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="sc">&#39;6&#39;</span><span class="p">:</span>
+<span class="w">    </span><span class="n">calibration</span><span class="p">(</span><span class="n">lcd</span><span class="p">,</span><span class="w"> </span><span class="n">userInput</span><span class="p">,</span><span class="w"> </span><span class="n">keypad</span><span class="p">,</span><span class="w"> </span><span class="n">encoder</span><span class="p">,</span><span class="w"> </span><span class="n">measurements</span><span class="p">,</span><span class="w"> </span><span class="n">controls</span><span class="p">);</span>
+<span class="w">    </span><span class="n">displayMenu</span><span class="p">(</span><span class="n">lcd</span><span class="p">);</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Disable Another Mode:</strong> To free up enough memory, you must temporarily comment out another mode. For example, you can disable the <strong>Transient Response Mode</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// case &#39;4&#39;:</span>
+<span class="c1">//    transientResponseMode(lcd, userInput, keypad, encoder, measurements, controls, transient);</span>
+<span class="c1">//    displayMenu(lcd);</span>
+<span class="c1">//    break;</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Upload and Calibrate:</strong> Compile and upload the modified firmware. The calibration menu will now be accessible by pressing <code>6</code> in the main menu of the load.</p>
+</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Important</p>
+<p>After you have completed the calibration, you <strong>must</strong> revert these changes (re-comment the calibration block and un-comment the mode you disabled) and re-upload the firmware to restore full functionality.</p>
+</div>
+<h2 id="pc-application">🖥️ PC Application</h2>
+<p>To complement the electronic load, a dedicated desktop application is available. The application currently focuses on enhancing the <strong>Battery Test Mode</strong>, with potential support for other operating modes in future updates.</p>
+<figure>
+<p><img alt="PC Application Interface" id="fig:pc-app" src="../img/desktop-app-battery-discharge.png" /></p>
+<figcaption>
+<p>The PC application interface during a battery discharge test.</p>
+</figcaption>
+</figure>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Remote Control:</strong> Set the battery discharge current and the cut-off voltage directly from the application.</li>
+<li><strong>Real-Time Visualization:</strong> View live plots of the battery's voltage and current throughout the discharge test.</li>
+<li><strong>Data Export:</strong> Save the recorded discharge graph as a JPG image or export the raw measurement data as a CSV file for further analysis in other software.</li>
+<li><strong>Multi-Language Support:</strong> The user interface is available in English, Polish, and German.</li>
+</ul>
+<h3 id="technical-details">Technical Details</h3>
+<p>The application communicates with the electronic load via a serial connection through the <a href="../hardware-design/#fig:back-panel-wireframe">Micro USB port</a>. It was developed in C++ using the Qt framework, which allows it to be cross-platform.</p>
+<h3 id="availability">Availability</h3>
+<div class="admonition tip">
+<p class="admonition-title">Windows Users</p>
+<p>A pre-compiled, ready-to-use version for Windows is available for convenience in the project repository at:
+<code>desktop_app/release/windows-64bit/electronic_load_control_app.exe</code></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Linux and Other OS Users</p>
+<p>Since the application is built with the cross-platform Qt framework, it can be compiled for other operating systems like Linux. The full source code is available in the repository for users who wish to build it themselves. Pre-compiled binaries for Linux may be added in the future.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>
