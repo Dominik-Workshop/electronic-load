@@ -60,8 +60,7 @@ A pre-compiled, ready-to-use version for Windows is available for convenience in
 
 The precision of the electronic load's current and voltage measurements, as well as its set current accuracy, were tested against the `Sanwa PC7000` multimeter. The following tables present the results of these measurements.
 
-### Set And Measured Current
-
+**Set And Measured Current**
 | Set Value [A] | Load Measurement [A] | Multimeter Measurement [A]  |
 |:--------------|:---------------------|:----------------------------|
 | 0.1           | 0.104                | 0.1032 ± 0.0029             |
@@ -82,8 +81,7 @@ The precision of the electronic load's current and voltage measurements, as well
 | 7.0           | 6.998                | 6.997 ± 0.076               |
 | 8.0           | 7.998                | 7.990 ± 0.084               |
 
-### Voltage
-
+**Voltage**
 | Load Measurement [V] | Multimeter Measurement [V] |
 |:---------------------|:---------------------------|
 | 1.002                | 1.0022 ± 0.0006            |
@@ -105,7 +103,8 @@ The precision of the electronic load's current and voltage measurements, as well
 | 45.02                | 45.023 ± 0.021             |
 | 50.01                | 50.012 ± 0.023             |
 
-### Conclusion
+**Conclusion**
+
 ✅The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
 </details>
 
