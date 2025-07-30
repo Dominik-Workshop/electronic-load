@@ -1,4 +1,4 @@
-# DC Electronic load
+# DC Electronic Load
 
 [![License](https://img.shields.io/github/license/Dominik-Workshop/electronic-load)](https://github.com/Dominik-Workshop/electronic-load/blob/main/LICENSE) ![Repo Size](https://img.shields.io/github/repo-size/Dominik-Workshop/electronic-load)
 
@@ -8,7 +8,7 @@
 Commercially available electronic loads often come with a hefty price tag, so I decided to build my own. 
 This project was inspired by many electronic loads, with the primary inspiration being [Scullcom's Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
 
-### Key features
+### Key Features
 
 - Supports up to **50 V** and **8 A** input
 - Power dissipation: **200 W** continuous / **300 W** peak
@@ -18,20 +18,20 @@ This project was inspired by many electronic loads, with the primary inspiration
 - **PC application** for real-time monitoring, control, and data logging
 - **Fully open-source**: hardware, firmware, and software
 
-### Learn more
+### Learn More
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtu.be/NScaRQj53l0)<br>
 [![Documentation](https://img.shields.io/badge/Documentation-blue.svg?style=for-the-badge&logo=readthedocs&logoColor=white)](https://dominik-workshop.github.io/electronic-load)
 
-## Project status
+## Project Status
 ✅ **Ready for construction!** <br>
 The project is poised for construction and operational use. However, there might be some occasional updates to address minor bugs, introduce new features, or improve the overall user experience. Stay tuned for further developments!
 
 ## Electronics
-### Block diagram
+### Block Diagram
 
 ![Alt text](./pcb/block_diagram.drawio.svg)
 
-### PCBs:
+### PCBs
 - Main board: responsible for main funcionalities of the load
 
 <img align="center" width=90% src="images/renders/main-PCB-rightT_transparent.png"> 
@@ -43,25 +43,25 @@ The project is poised for construction and operational use. However, there might
 </p>
 
 
-## Mechanical construction:
+## Mechanical
 The case for this project is made with 1mm thick bent sheet metal, with a 3D printed front panel.
 
 <img align="center" width=90% src="images/renders/electronic_load_angle_top_off.png"> 
 <img align="center" width=90% src="images/renders/electronic_load_back.png"> 
 
-## PC remote controll battery mode app
+## PC App
 <img align="center" src="images/screenshots/desktop_app_battery_discharge.png"> 
 The app is currently available for Windows only. To run it, simply double-click on
 
 `\desktop_app\release\windows-64bit\electronic_load_control_app.exe`
 
-## Accuracy measurements
+## Accuracy Measurements
 <details>
 <summary>Click to learn more</summary>
 
 The precision of the electronic load's current and voltage measurements, as well as its set current accuracy, were tested against the `Sanwa PC7000` multimeter. The following tables present the results of these measurements.
 
-### Accuracy of set and measured current values
+### Set And Measured Current
 
 | Set Value [A] | Load Measurement [A] | Multimeter Measurement [A]  |
 |:--------------|:---------------------|:----------------------------|
@@ -83,7 +83,7 @@ The precision of the electronic load's current and voltage measurements, as well
 | 7.0           | 6.998                | 6.997 ± 0.076               |
 | 8.0           | 7.998                | 7.990 ± 0.084               |
 
-### Accuracy of voltage measurements
+### Voltage
 
 | Load Measurement [V] | Multimeter Measurement [V] |
 |:---------------------|:---------------------------|
@@ -106,19 +106,18 @@ The precision of the electronic load's current and voltage measurements, as well
 | 45.02                | 45.023 ± 0.021             |
 | 50.01                | 50.012 ± 0.023             |
 
-### Conclusion: ✅
-
-The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
+### Conclusion
+✅The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
 </details>
 
 
-## Used tools
+## Used Tools
 <img align="center" height="64" src="images/logos/Eagle.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
 <img align="center"  height="64" src="images/logos/Fusion-360.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
 <img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
 <img align="center" height="88" src="images/logos/Qt.png">
 
 
-## Special thanks
+## Special Thanks
 
 Special thanks to [**Eryk Możdzeń**](https://github.com/Eryk-Mozdzen), who helped solving a software problem with a memory leak.
