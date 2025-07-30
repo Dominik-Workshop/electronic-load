@@ -1,86 +1,66 @@
-# DC Electronic load
+# DC Electronic Load
 
-### More info about this project can be found on my channel: 
-<img align="center" height="32" src="images/logos/YT.png"> https://youtu.be/NScaRQj53l0
+[![License](https://img.shields.io/github/license/Dominik-Workshop/electronic-load)](https://github.com/Dominik-Workshop/electronic-load/blob/main/LICENSE) ![Repo Size](https://img.shields.io/github/repo-size/Dominik-Workshop/electronic-load)
 
-## Used tools:
-<img align="center" height="64" src="images/logos/Eagle.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center"  height="64" src="images/logos/Fusion-360.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center" height="88" src="images/logos/Qt.png">
+<img align="center" src="images/pictures/front-no-background.png">
 
-
-## Project status: :heavy_check_mark: ready for construction!
-The project is poised for construction and operational use. However, ongoing development persists, addressing minor bug fixes and introducing new features. Stay tuned for updates!
-
-## Project overview
+## Overview
 Commercially available electronic loads often come with a hefty price tag, so I decided to build my own. 
-This project was inspired by many electronic loads, with the primary inspiration being Scullcom's Electronic DC Load. You can view it [here](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
+This project was inspired by many electronic loads, with the primary inspiration being [Scullcom's Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
 
-<img align="center" src="images/pictures/front-no-background.png"> 
-&nbsp;&nbsp;&nbsp; 
-<img align="center" src="images/pictures/insides-no-background.png"> 
+### Key Features
+- Supports up to **50 V** and **8 A** input
+- Power dissipation: **200 W** continuous / **300 W** peak
+- **Five operating modes**: constant current, power, resistance, step load, battery test
+- **Remote voltage sensing**
+- **User-friendly interface**: rotary encoder + numeric keypad
+- **PC application** for real-time monitoring, control, and data logging
+- **Fully open-source**: hardware, firmware, and software
 
-### Project goals:
-- **300 W power dissipation**
+### Learn More
+[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtu.be/NScaRQj53l0)<br>
+[![Documentation](https://img.shields.io/badge/Documentation-blue.svg?style=for-the-badge&logo=readthedocs&logoColor=white)](https://dominik-workshop.github.io/electronic-load)
 
-- **up to 8A and 50V** (obeying the 300W limit)
+## Project Status
+✅ **Ready for construction!** <br>
+The project is poised for construction and operational use. However, there might be some occasional updates to address minor bugs, introduce new features, or improve the overall user experience. Stay tuned for further developments!
 
-- **Remote voltage sensing option**
+## Electronics
+The electronics architecture of the load is shown on the block diagram bellow:
+![Block diagram](./pcb/block_diagram.drawio.svg)
 
-- **Easy to input values:** you can use an encoder as well as a keypad
-
-- **5 modes of operation**
-  - **Constant current mode**
-
-  - **Constant power mode**
-
-  - **Constant resistance mode**
-
-  - **Transient response mode**
-
-  - **Battery testing mode**
-
-- **Nice to look at:** doesn't look like a poor DIY build
-
-
-## Electronics:
-### Block diagram
-
-![Alt text](./pcb/block_diagram.drawio.svg)
-
-### PCBs:
-- Main board: responsible for main funcionalities of the load
+This project contains 2 custom PCBs:
+- [**Main board**](/pcb/pcb_main/): responsible for main funcionalities of the load
 
 <img align="center" width=90% src="images/renders/main-PCB-rightT_transparent.png"> 
 
-- Front board: responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals
+- [**Front board**](/pcb/pcb_front/): responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals
 
 <p align="center">
   <img align="center" width=40% src="images/renders/front_PCB_front_angle.png"> 
 </p>
 
 
-## Mechanical construction:
+## Mechanical
 The case for this project is made with 1mm thick bent sheet metal, with a 3D printed front panel.
 
 <img align="center" width=90% src="images/renders/electronic_load_angle_top_off.png"> 
 <img align="center" width=90% src="images/renders/electronic_load_back.png"> 
 
-## PC remote controll battery mode app
+## PC App
+To complement the electronic load, a dedicated desktop application is available. The application currently focuses on enhancing the **Battery Test Mode**, with potential support for other operating modes in future updates.
+
 <img align="center" src="images/screenshots/desktop_app_battery_discharge.png"> 
-The app is currently available for Windows only. To run it, simply double-click on
 
-`\desktop_app\release\windows-64bit\electronic_load_control_app.exe`
+A pre-compiled, ready-to-use version for Windows is available for convenience in the project repository at: `desktop_app/release/windows-64bit/electronic_load_control_app.exe`
 
-## Accuracy measurements
+## Accuracy Measurements
 <details>
 <summary>Click to learn more</summary>
 
 The precision of the electronic load's current and voltage measurements, as well as its set current accuracy, were tested against the `Sanwa PC7000` multimeter. The following tables present the results of these measurements.
 
-### Accuracy of set and measured current values
-
+**Set And Measured Current**
 | Set Value [A] | Load Measurement [A] | Multimeter Measurement [A]  |
 |:--------------|:---------------------|:----------------------------|
 | 0.1           | 0.104                | 0.1032 ± 0.0029             |
@@ -101,8 +81,7 @@ The precision of the electronic load's current and voltage measurements, as well
 | 7.0           | 6.998                | 6.997 ± 0.076               |
 | 8.0           | 7.998                | 7.990 ± 0.084               |
 
-### Accuracy of voltage measurements
-
+**Voltage**
 | Load Measurement [V] | Multimeter Measurement [V] |
 |:---------------------|:---------------------------|
 | 1.002                | 1.0022 ± 0.0006            |
@@ -124,40 +103,19 @@ The precision of the electronic load's current and voltage measurements, as well
 | 45.02                | 45.023 ± 0.021             |
 | 50.01                | 50.012 ± 0.023             |
 
-### Conclusion: ✅
+**Conclusion**
 
-The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
-</details>
-
-## Uploading the code using USBASP
-<details>
-<summary>Click to learn more</summary>
-
-Add the following code to the `platformio.ini` file
-
-    upload_protocol = custom
-    upload_port = usb
-    upload_flags = 
-        -C
-        ${platformio.packages_dir}/tool-avrdude/avrdude.conf
-        -p
-        $BOARD_MCU
-        -P
-        $UPLOAD_PORT
-        -c
-        usbasp
-    upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
-
-Uploading the code this way will reduce the boot up time.
-
-**Note:** Since this method removes the bootloader, in order to program the uC via UART next time, you have to burn the bootloader.
+✅The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
 </details>
 
 
-## What could be improved in the next version:
-  - Add reverse polarity protection
-  - Higher resolution DAC
+## Used Tools
+<img align="center" height="64" src="images/logos/Eagle.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+<img align="center"  height="64" src="images/logos/Fusion-360.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+<img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+<img align="center" height="88" src="images/logos/Qt.png">
 
-## Special thanks
+
+## Special Thanks
 
 Special thanks to [**Eryk Możdzeń**](https://github.com/Eryk-Mozdzen), who helped solving a software problem with a memory leak.
