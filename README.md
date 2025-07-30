@@ -27,16 +27,15 @@ This project was inspired by many electronic loads, with the primary inspiration
 The project is poised for construction and operational use. However, there might be some occasional updates to address minor bugs, introduce new features, or improve the overall user experience. Stay tuned for further developments!
 
 ## Electronics
-### Block Diagram
+The electronics architecture of the load is shown on the block diagram bellow:
+![Block diagram](./pcb/block_diagram.drawio.svg)
 
-![Alt text](./pcb/block_diagram.drawio.svg)
-
-### PCBs
-- Main board: responsible for main funcionalities of the load
+This project contains 2 custom PCBs:
+- [**Main board**](/pcb/pcb_main/): responsible for main funcionalities of the load
 
 <img align="center" width=90% src="images/renders/main-PCB-rightT_transparent.png"> 
 
-- Front board: responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals
+- [**Front board**](/pcb/pcb_front/): responsible for user input with the rotary encoder and switching the voltage measurement circuitry between the main and sense terminals
 
 <p align="center">
   <img align="center" width=40% src="images/renders/front_PCB_front_angle.png"> 
