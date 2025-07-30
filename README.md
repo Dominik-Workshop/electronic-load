@@ -1,25 +1,23 @@
 # DC Electronic load
 
-### More info about this project can be found on my channel: 
-<img align="center" height="32" src="images/logos/YT.png"> https://youtu.be/NScaRQj53l0
+[![License](https://img.shields.io/github/license/Dominik-Workshop/electronic-load)](https://github.com/Dominik-Workshop/electronic-load/blob/main/LICENSE) ![Repo Size](https://img.shields.io/github/repo-size/Dominik-Workshop/electronic-load)
 
-## Used tools:
-<img align="center" height="64" src="images/logos/Eagle.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center"  height="64" src="images/logos/Fusion-360.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center" height="88" src="images/logos/Qt.png">
+<img align="center" src="images/pictures/front-no-background.png">
+
+## Overview
+Commercially available electronic loads often come with a hefty price tag, so I decided to build my own. 
+This project was inspired by many electronic loads, with the primary inspiration being Scullcom's Electronic DC Load. You can view it [here](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
+
+### Learn more
+[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtu.be/NScaRQj53l0)<br>
+[![Documentation](https://img.shields.io/badge/Documentation-blue.svg?style=for-the-badge&logo=readthedocs&logoColor=white)](https://dominik-workshop.github.io/electronic-load)
+
+
 
 
 ## Project status: :heavy_check_mark: ready for construction!
 The project is poised for construction and operational use. However, ongoing development persists, addressing minor bug fixes and introducing new features. Stay tuned for updates!
 
-## Project overview
-Commercially available electronic loads often come with a hefty price tag, so I decided to build my own. 
-This project was inspired by many electronic loads, with the primary inspiration being Scullcom's Electronic DC Load. You can view it [here](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
-
-<img align="center" src="images/pictures/front-no-background.png"> 
-&nbsp;&nbsp;&nbsp; 
-<img align="center" src="images/pictures/insides-no-background.png"> 
 
 ### Project goals:
 - **300 W power dissipation**
@@ -129,34 +127,13 @@ The precision of the electronic load's current and voltage measurements, as well
 The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
 </details>
 
-## Uploading the code using USBASP
-<details>
-<summary>Click to learn more</summary>
 
-Add the following code to the `platformio.ini` file
+## Used tools
+<img align="center" height="64" src="images/logos/Eagle.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+<img align="center"  height="64" src="images/logos/Fusion-360.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+<img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+<img align="center" height="88" src="images/logos/Qt.png">
 
-    upload_protocol = custom
-    upload_port = usb
-    upload_flags = 
-        -C
-        ${platformio.packages_dir}/tool-avrdude/avrdude.conf
-        -p
-        $BOARD_MCU
-        -P
-        $UPLOAD_PORT
-        -c
-        usbasp
-    upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
-
-Uploading the code this way will reduce the boot up time.
-
-**Note:** Since this method removes the bootloader, in order to program the uC via UART next time, you have to burn the bootloader.
-</details>
-
-
-## What could be improved in the next version:
-  - Add reverse polarity protection
-  - Higher resolution DAC
 
 ## Special thanks
 
