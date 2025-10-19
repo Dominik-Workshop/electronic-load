@@ -75,6 +75,67 @@ String MCP79410_Timer::getTime(){
 }
 
 
+// NOVÉ METÓDY PRE BATTERY MODE SE SEKUNDOVÝM IMPULZOM
+void MCP79410_Timer::startBatteryTimer() {
+    // Zapni oscilátor v RTC
+    start();  // <- toto volá pôvodnú metódu, ktorá zapíše bit 0x80 do sekúnd
+
+    _batteryTimerRunning = true;
+    _lastRtcSecond = seconds(); // inicializácia na aktuálnu sekundu
+}
+
+void MCP79410_Timer::stopBatteryTimer() {
+    stop(); // <- vypne oscilátor v RTC
+    _batteryTimerRunning = false;
+}
+
+void MCP79410_Timer::resetBatteryTimer() {
+    reset(); // <- vynuluje registre RTC na 00:00:00 a vypne oscilátor
+    _batterySeconds = 0;
+    _batteryTimerRunning = false;
+    _lastRtcSecond = 0;
+}
+
+void MCP79410_Timer::updateBatteryTimer() {
+    if (!_batteryTimerRunning)
+        return;
+
+    uint8_t currentSecond = seconds();
+
+    // keď sa RTC sekunda zmení, pridaj do počítadla
+    if (currentSecond != _lastRtcSecond) {
+        // Pozor na prechod z 59 → 00
+        if ((currentSecond == 0 && _lastRtcSecond == 59) || currentSecond > _lastRtcSecond) {
+            _batterySeconds++;
+        }
+        _lastRtcSecond = currentSecond;
+    }
+}
+
+
+uint32_t MCP79410_Timer::getBatterySeconds() {
+    return _batterySeconds;
+}
+
+String MCP79410_Timer::getBatteryTime() {
+    uint32_t totalSeconds = _batterySeconds;
+    uint32_t hours = totalSeconds / 3600;
+    uint32_t remainingSeconds = totalSeconds % 3600;
+    uint8_t minutes = remainingSeconds / 60;
+    uint8_t seconds = remainingSeconds % 60;
+    
+    //max time 999:59:59
+    char timeString[12];
+    sprintf(timeString, "%3lu:%02d:%02d", hours, minutes, seconds);
+    return String(timeString);
+
+}
+
+bool MCP79410_Timer::isBatteryTimerRunning() {
+    return _batteryTimerRunning;
+}
+
+
 //Read RTC Byte
 unsigned char MCP79410_Timer::_readRtcByte(const unsigned char adr){
   unsigned char data;

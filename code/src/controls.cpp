@@ -26,7 +26,7 @@ Controls::Controls(Measurements& measurements_): measurements(measurements_){
  * 
  */
 void Controls::fanControll(){
-	fanspeed = map(measurements.temperature, lowTemperatureThreshold, 45, 60, 255);
+	fanspeed = map(measurements.temperature, lowTemperatureThreshold, highTemperatureThreshold, 60, 255);
 	//hysteresis, so that fans don't turn on/off repeatedly when crossing the threshold
   if (measurements.temperature < lowTemperatureThreshold){
     fanspeed = 0;

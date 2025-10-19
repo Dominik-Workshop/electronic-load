@@ -22,8 +22,9 @@ Battery::Battery(){
  * @param lcd 
  */
 void Battery::displayCapacity(LiquidCrystal_I2C& lcd){
-  char displayValue[20];
-  dtostrf(capacity, 5, 0, displayValue);
+  char displayValue[12];
+  // set cursor to 6 for 999999mAh
+  dtostrf(capacity, 6, 0, displayValue);
   lcd.setCursor(0, 0);
 	lcd.print(displayValue);
   lcd.print("mAh");

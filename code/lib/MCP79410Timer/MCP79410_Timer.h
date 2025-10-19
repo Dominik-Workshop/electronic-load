@@ -18,6 +18,15 @@ class MCP79410_Timer {
     String getTime();
     uint32_t getTotalSeconds();
 
+    // NOVÉ METÓDY PRE BATTERY MODE SE SEKUNDOVÝM IMPULZOM
+    void startBatteryTimer();
+    void stopBatteryTimer();  
+    void resetBatteryTimer();
+    uint32_t getBatterySeconds();
+    String getBatteryTime();
+    bool isBatteryTimerRunning();
+    void updateBatteryTimer();  // Volať pravidelne na detekciu zmeny sekundy
+
   private:
     // private methods
     unsigned char _readRtcByte(const unsigned char adr);
@@ -26,10 +35,15 @@ class MCP79410_Timer {
     uint8_t _makeHex(uint8_t num);
     unsigned char _getRtcData(const unsigned char adr, const unsigned char validbits);
     String _format2digit(const unsigned char data);
+    
     // private variables
     byte _rtcAddress;
     int _rtcState;
 
+    // NOVÉ PREMENNÉ PRE BATTERY MODE
+    uint32_t _batterySeconds = 0;
+    uint8_t _lastRtcSecond = 0;
+    bool _batteryTimerRunning = false;
 };
 
 #endif
