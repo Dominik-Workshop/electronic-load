@@ -115,7 +115,9 @@ The precision of the electronic load's current and voltage measurements, as well
 <img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
 <img align="center" height="88" src="images/logos/Qt.png">
 
-
 ## Special Thanks
 
-Special thanks to [**Eryk Możdzeń**](https://github.com/Eryk-Mozdzen), who helped solving a software problem with a memory leak.
+Special thanks to:
+
+- [**Eryk Możdzeń**](https://github.com/Eryk-Mozdzen) - for helping to solve a software problem with a **memory leak**
+- [**marecek89**](https://github.com/marecek89) - for fixing the **time measurement error** in long battery capacity tests
