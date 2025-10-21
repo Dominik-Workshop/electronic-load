@@ -231,7 +231,7 @@ int batteryCapacityMode(LiquidCrystal_I2C& lcd, UserInput& userInput, Keypad& ke
                 battery.dischargeCurrent.display(lcd);
 
                 if(prevSetCurrent != battery.dischargeCurrent.value){
-                    // DÔLEŽITÉ: Zachovať kapacitu a pokračovať v meraní
+                    // IMPORTANT: Maintain capacity and continue measuring
                     accumulatedCapacity = battery.capacity;           
                     lastBatterySeconds = measurements.timer.getBatterySeconds();
                     prevSetCurrent = battery.dischargeCurrent.value;
@@ -261,7 +261,7 @@ int batteryCapacityMode(LiquidCrystal_I2C& lcd, UserInput& userInput, Keypad& ke
         measurements.displayMeasurements(lcd, controls.isLoadOn());
         controls.fanControll();
         
-		lcd.setCursor(6, 3); //nové zarovnanie
+		lcd.setCursor(6, 3); //new clock alignment
         lcd.print(measurements.timer.getBatteryTime());
         
         if (controls.isLoadOn()){
@@ -295,7 +295,7 @@ int batteryCapacityMode(LiquidCrystal_I2C& lcd, UserInput& userInput, Keypad& ke
                     if (!measurementActive) {
                         measurements.timer.startBatteryTimer();
                         measurementActive = true;
-                        // Zachovať kapacitu pri opätovnom zapnutí
+                        // Maintain capacity when restarting
                         accumulatedCapacity = battery.capacity;
                         lastBatterySeconds = measurements.timer.getBatterySeconds();
                     }
@@ -328,7 +328,7 @@ int batteryCapacityMode(LiquidCrystal_I2C& lcd, UserInput& userInput, Keypad& ke
                     
                     measurements.displayMeasurements(lcd, controls.isLoadOn());
                     controls.fanControll();
-					//Nastavit kurzor na spravne miesto
+					// Keeping the clock in the right place.
 					lcd.setCursor(6, 3);
                     lcd.print(measurements.timer.getBatteryTime());
                     
@@ -387,7 +387,7 @@ int batteryCapacityMode(LiquidCrystal_I2C& lcd, UserInput& userInput, Keypad& ke
                     }
 
                     if(prevSetCurrent != battery.dischargeCurrent.value){
-                        // DÔLEŽITÉ: Zachovať kapacitu aj v Enter režime
+                        // IMPORTANT: Maintain capacity even in Enter mode
                         accumulatedCapacity = battery.capacity;
                         lastBatterySeconds = measurements.timer.getBatterySeconds();
                         prevSetCurrent = battery.dischargeCurrent.value;

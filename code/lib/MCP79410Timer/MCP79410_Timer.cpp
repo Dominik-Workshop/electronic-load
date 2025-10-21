@@ -75,22 +75,22 @@ String MCP79410_Timer::getTime(){
 }
 
 
-// NOVÉ METÓDY PRE BATTERY MODE SE SEKUNDOVÝM IMPULZOM
+// NEW METHOD FOR BATTERY MODE WITH SECOND PULSE
 void MCP79410_Timer::startBatteryTimer() {
-    // Zapni oscilátor v RTC
-    start();  // <- toto volá pôvodnú metódu, ktorá zapíše bit 0x80 do sekúnd
+    // Turn on the oscillator in the RTC
+    start();  // <- this calls the original method which writes bit 0x80 to seconds
 
     _batteryTimerRunning = true;
-    _lastRtcSecond = seconds(); // inicializácia na aktuálnu sekundu
+    _lastRtcSecond = seconds(); // initialization to the current second
 }
 
 void MCP79410_Timer::stopBatteryTimer() {
-    stop(); // <- vypne oscilátor v RTC
+    stop(); // <- turns off the oscillator in the RTC
     _batteryTimerRunning = false;
 }
 
 void MCP79410_Timer::resetBatteryTimer() {
-    reset(); // <- vynuluje registre RTC na 00:00:00 a vypne oscilátor
+    reset(); // <- resets the RTC registers to 00:00:00 and turns off the oscillator
     _batterySeconds = 0;
     _batteryTimerRunning = false;
     _lastRtcSecond = 0;
@@ -102,9 +102,9 @@ void MCP79410_Timer::updateBatteryTimer() {
 
     uint8_t currentSecond = seconds();
 
-    // keď sa RTC sekunda zmení, pridaj do počítadla
+    // when RTC second changes, add to counter
     if (currentSecond != _lastRtcSecond) {
-        // Pozor na prechod z 59 → 00
+        // Watch out for the transition from 59 → 00
         if ((currentSecond == 0 && _lastRtcSecond == 59) || currentSecond > _lastRtcSecond) {
             _batterySeconds++;
         }

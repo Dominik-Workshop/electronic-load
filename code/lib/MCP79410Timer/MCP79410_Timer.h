@@ -18,14 +18,14 @@ class MCP79410_Timer {
     String getTime();
     uint32_t getTotalSeconds();
 
-    // NOVÉ METÓDY PRE BATTERY MODE SE SEKUNDOVÝM IMPULZOM
+    // NEW METHOD FOR BATTERY MODE WITH SECOND PULSE
     void startBatteryTimer();
     void stopBatteryTimer();  
     void resetBatteryTimer();
     uint32_t getBatterySeconds();
     String getBatteryTime();
     bool isBatteryTimerRunning();
-    void updateBatteryTimer();  // Volať pravidelne na detekciu zmeny sekundy
+    void updateBatteryTimer();  // Call periodically to detect a change of second
 
   private:
     // private methods
@@ -40,7 +40,7 @@ class MCP79410_Timer {
     byte _rtcAddress;
     int _rtcState;
 
-    // NOVÉ PREMENNÉ PRE BATTERY MODE
+    // NEW VARIABLES FOR BATTERY MODE
     uint32_t _batterySeconds = 0;
     uint8_t _lastRtcSecond = 0;
     bool _batteryTimerRunning = false;
