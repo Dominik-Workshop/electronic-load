@@ -75,6 +75,67 @@ String MCP79410_Timer::getTime(){
 }
 
 
+// NEW METHOD FOR BATTERY MODE WITH SECOND PULSE
+void MCP79410_Timer::startBatteryTimer() {
+    // Turn on the oscillator in the RTC
+    start();  // <- this calls the original method which writes bit 0x80 to seconds
+
+    _batteryTimerRunning = true;
+    _lastRtcSecond = seconds(); // initialization to the current second
+}
+
+void MCP79410_Timer::stopBatteryTimer() {
+    stop(); // <- turns off the oscillator in the RTC
+    _batteryTimerRunning = false;
+}
+
+void MCP79410_Timer::resetBatteryTimer() {
+    reset(); // <- resets the RTC registers to 00:00:00 and turns off the oscillator
+    _batterySeconds = 0;
+    _batteryTimerRunning = false;
+    _lastRtcSecond = 0;
+}
+
+void MCP79410_Timer::updateBatteryTimer() {
+    if (!_batteryTimerRunning)
+        return;
+
+    uint8_t currentSecond = seconds();
+
+    // when RTC second changes, add to counter
+    if (currentSecond != _lastRtcSecond) {
+        // Watch out for the transition from 59 → 00
+        if ((currentSecond == 0 && _lastRtcSecond == 59) || currentSecond > _lastRtcSecond) {
+            _batterySeconds++;
+        }
+        _lastRtcSecond = currentSecond;
+    }
+}
+
+
+uint32_t MCP79410_Timer::getBatterySeconds() {
+    return _batterySeconds;
+}
+
+String MCP79410_Timer::getBatteryTime() {
+    uint32_t totalSeconds = _batterySeconds;
+    uint32_t hours = totalSeconds / 3600;
+    uint32_t remainingSeconds = totalSeconds % 3600;
+    uint8_t minutes = remainingSeconds / 60;
+    uint8_t seconds = remainingSeconds % 60;
+    
+    //max time 999:59:59
+    char timeString[12];
+    sprintf(timeString, "%3lu:%02d:%02d", hours, minutes, seconds);
+    return String(timeString);
+
+}
+
+bool MCP79410_Timer::isBatteryTimerRunning() {
+    return _batteryTimerRunning;
+}
+
+
 //Read RTC Byte
 unsigned char MCP79410_Timer::_readRtcByte(const unsigned char adr){
   unsigned char data;

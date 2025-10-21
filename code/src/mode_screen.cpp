@@ -177,198 +177,245 @@ void sendLoadStatisticsOverSerial(Measurements& measurements, Battery& battery, 
 }
 
 int batteryCapacityMode(LiquidCrystal_I2C& lcd, UserInput& userInput, Keypad& keypad, Encoder& encoder, Measurements& measurements, Controls& controls, Battery& battery){
-	float prevSetCurrent = battery.dischargeCurrent.value;
-	float prevCapacity = 0;
-	uint32_t prevTime = 0;
-	char data;
-	lcd.clear();
-	lcd.setCursor(0, 0);
-	lcd.print("  Battery capacity  ");
-  lcd.setCursor(0, 1);
-	lcd.print("  measurement mode  ");
-	lcd.setCursor(0, 2);
-  lcd.print("Enter cutoff voltage");
-	userInput.cursorPosX = 2;
-	userInput.decimalPlace = ones;
-	battery.changedVariable = DischargeCurrent;
+    static float accumulatedCapacity = 0;
+    static bool measurementActive = false;
+    static uint32_t lastBatterySeconds = 0;
+    float prevSetCurrent = battery.dischargeCurrent.value;
+    char data;
+    
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("  Battery capacity  ");
+    lcd.setCursor(0, 1);
+    lcd.print("  measurement mode  ");
+    lcd.setCursor(0, 2);
+    lcd.print("Enter cutoff voltage");
+    userInput.cursorPosX = 2;
+    userInput.decimalPlace = ones;
+    battery.changedVariable = DischargeCurrent;
 
-	do{
-		userInput.key = keypad.getKey();
-		userInput.inputFromKeypad(lcd, battery.cutoffVoltage, 14, 2);
-	} while (userInput.key != Enter);
-  
-	lcd.clear();
-  lcd.setCursor(0, 2);
-  lcd.print("I=");
-	battery.dischargeCurrent.display(lcd);
-	lcd.print("A  Off=");
-	battery.cutoffVoltage.display(lcd);
-	lcd.print("V");
+    do{
+        userInput.key = keypad.getKey();
+        userInput.inputFromKeypad(lcd, battery.cutoffVoltage, 14, 2);
+    } while (userInput.key != Enter);
+    
+    lcd.clear();
+    lcd.setCursor(0, 2);
+    lcd.print("I=");
+    battery.dischargeCurrent.display(lcd);
+    lcd.print("A  Off=");
+    battery.cutoffVoltage.display(lcd);
+    lcd.print("V");
 
-	controls.loadOff(lcd);
-	controls.regulateCurrent(battery.dischargeCurrent.value);
+    controls.loadOff(lcd);
+    controls.regulateCurrent(battery.dischargeCurrent.value);
 
-	while(1){
-		if(Serial.available()>0){
-			data = Serial.read();
-    	if(data == 'o')
-				controls.loadOnOffToggle(lcd);
-			if(controls.isLoadOn())
-				measurements.timer.start();
-			else
-				measurements.timer.stop();
+    while(1){
+        measurements.timer.updateBatteryTimer();
+        
+        if(Serial.available()>0){
+            data = Serial.read();
+            if(data == 'o')
+                controls.loadOnOffToggle(lcd);
+            if(controls.isLoadOn())
+                measurements.timer.startBatteryTimer();
+            else
+                measurements.timer.stopBatteryTimer();
 
-			if(data == 'a'){
-				userInput.setCurrent.value = Serial.parseFloat();
-				userInput.setCurrent.limit();
-				battery.dischargeCurrent.value = userInput.setCurrent.value;
-				controls.regulateCurrent(userInput.setCurrent.value);
-				lcd.setCursor(2, 2);
-				battery.dischargeCurrent.display(lcd);
+            if(data == 'a'){
+                userInput.setCurrent.value = Serial.parseFloat();
+                userInput.setCurrent.limit();
+                battery.dischargeCurrent.value = userInput.setCurrent.value;
+                controls.regulateCurrent(userInput.setCurrent.value);
+                lcd.setCursor(2, 2);
+                battery.dischargeCurrent.display(lcd);
 
-				if(prevSetCurrent != battery.dischargeCurrent.value){	//if changed discharge current
-					prevCapacity = battery.capacity;
-					prevTime = measurements.timer.getTotalSeconds();
-					prevSetCurrent = battery.dischargeCurrent.value;
-				}
-			}
-			if(data == 'c'){
-				battery.cutoffVoltage.value = Serial.parseFloat();
-				battery.cutoffVoltage.limit();
-				lcd.setCursor(14, 2);
-				battery.cutoffVoltage.display(lcd);
-			}
-			if(data == 'r'){
-				measurements.timer.stop();
-				measurements.timer.reset();
-				battery.capacity = 0;
-				prevCapacity = 0;
-				prevTime = 0;
-				if(controls.isLoadOn())
-					measurements.timer.start();
-			}
-		}
+                if(prevSetCurrent != battery.dischargeCurrent.value){
+                    // IMPORTANT: Maintain capacity and continue measuring
+                    accumulatedCapacity = battery.capacity;           
+                    lastBatterySeconds = measurements.timer.getBatterySeconds();
+                    prevSetCurrent = battery.dischargeCurrent.value;
+                }
+            }
+            if(data == 'c'){
+                battery.cutoffVoltage.value = Serial.parseFloat();
+                battery.cutoffVoltage.limit();
+                lcd.setCursor(14, 2);
+                battery.cutoffVoltage.display(lcd);
+            }
+            if(data == 'r'){
+                measurements.timer.stopBatteryTimer();
+                measurements.timer.resetBatteryTimer();
+                battery.capacity = 0;
+                accumulatedCapacity = 0;
+                lastBatterySeconds = 0;
+                if(controls.isLoadOn())
+                    measurements.timer.startBatteryTimer();
+            }
+        }
 
-		measurements.update();
+        measurements.update();
 
-		sendLoadStatisticsOverSerial(measurements, battery, controls.isLoadOn());
+        sendLoadStatisticsOverSerial(measurements, battery, controls.isLoadOn());
 
-		measurements.displayMeasurements(lcd, controls.isLoadOn());
-		controls.fanControll();
-		lcd.setCursor(7, 3);
-		lcd.print(measurements.timer.getTime());
-		if (controls.isLoadOn()){
-      battery.capacity = prevCapacity + (measurements.current * 1000) * ((measurements.timer.getTotalSeconds() - prevTime) / 3600.0);
+        measurements.displayMeasurements(lcd, controls.isLoadOn());
+        controls.fanControll();
+        
+		lcd.setCursor(6, 3); //new clock alignment
+        lcd.print(measurements.timer.getBatteryTime());
+        
+        if (controls.isLoadOn()){
+            uint32_t currentSeconds = measurements.timer.getBatterySeconds();
+            if (currentSeconds > lastBatterySeconds) {
+                uint32_t elapsedSeconds = currentSeconds - lastBatterySeconds;
+                float capacityAddition = measurements.current * 1000.0 * (elapsedSeconds / 3600.0);
+                accumulatedCapacity += capacityAddition;
+                battery.capacity = accumulatedCapacity;
+                lastBatterySeconds = currentSeconds;
+            }
+        }
+        
+        battery.displayCapacity(lcd);
+        
+        if(measurements.voltage < battery.cutoffVoltage.value){
+            controls.loadOff(lcd);
+            measurements.timer.stopBatteryTimer();
+            measurementActive = false;
+        }
+
+        switch (keypad.getKey()){
+            case Menu:
+                controls.loadOff(lcd);
+                measurements.timer.stopBatteryTimer();
+                return 0;
+                break;
+            case LoadOnOff:
+                controls.loadOnOffToggle(lcd);
+                if(controls.isLoadOn()) {
+                    if (!measurementActive) {
+                        measurements.timer.startBatteryTimer();
+                        measurementActive = true;
+                        // Maintain capacity when restarting
+                        accumulatedCapacity = battery.capacity;
+                        lastBatterySeconds = measurements.timer.getBatterySeconds();
+                    }
+                } else {
+                    measurements.timer.stopBatteryTimer();
+                    measurementActive = false;
+                }
+                break;
+            case Delete:
+                measurements.timer.stopBatteryTimer();
+                measurements.timer.resetBatteryTimer();
+                battery.capacity = 0;
+                accumulatedCapacity = 0;
+                lastBatterySeconds = 0;
+                if(controls.isLoadOn()) {
+                    measurements.timer.startBatteryTimer();
+                    measurementActive = true;
+                } else {
+                    measurementActive = false;
+                }
+                break;
+            case Enter:
+                encoder.reset();
+                userInput.time = millis();
+                while(userInput.time + 5000 > millis()){
+                    measurements.timer.updateBatteryTimer();
+                    measurements.update();
+
+                    sendLoadStatisticsOverSerial(measurements, battery, controls.isLoadOn());
+                    
+                    measurements.displayMeasurements(lcd, controls.isLoadOn());
+                    controls.fanControll();
+					// Keeping the clock in the right place.
+					lcd.setCursor(6, 3);
+                    lcd.print(measurements.timer.getBatteryTime());
+                    
+                    if (controls.isLoadOn()){
+                        uint32_t currentSeconds = measurements.timer.getBatterySeconds();
+                        if (currentSeconds > lastBatterySeconds) {
+                            uint32_t elapsedSeconds = currentSeconds - lastBatterySeconds;
+                            float capacityAddition = measurements.current * 1000.0 * (elapsedSeconds / 3600.0);
+                            accumulatedCapacity += capacityAddition;
+                            battery.capacity = accumulatedCapacity;
+                            lastBatterySeconds = currentSeconds;
+                        }
+                    }
+                    battery.displayCapacity(lcd);
+                    
+                    if(measurements.voltage < battery.cutoffVoltage.value){
+                        controls.loadOff(lcd);
+                        measurements.timer.stopBatteryTimer();
+                        measurementActive = false;
+                    }
+                    controls.regulateCurrent(battery.dischargeCurrent.value);
+
+                    userInput.key = keypad.getKey();
+                    lcd.cursor();
+                    lcd.setCursor(userInput.cursorPosX,2);
+                    delay(100);
+                    if(userInput.key == Menu){
+                        controls.loadOff(lcd);
+                        measurements.timer.stopBatteryTimer();
+                        return 0;
+                    }
+                    else if(userInput.key == LoadOnOff){
+                        controls.loadOnOffToggle(lcd);
+                        if(controls.isLoadOn()) {
+                            if (!measurementActive) {
+                                measurements.timer.startBatteryTimer();
+                                measurementActive = true;
+                                accumulatedCapacity = battery.capacity;
+                                lastBatterySeconds = measurements.timer.getBatterySeconds();
+                            }
+                        } else {
+                            measurements.timer.stopBatteryTimer();
+                            measurementActive = false;
+                        }
+                    }
+
+                    switch (battery.changedVariable){
+                        case DischargeCurrent:
+                            userInput.inputFromKeypad(lcd, battery.dischargeCurrent, 2, 2);
+                            userInput.checkEncoder(lcd, battery.dischargeCurrent, encoder, 2, 2);
+                            break;
+                        case CutoffVoltage:
+                            userInput.inputFromKeypad(lcd, battery.cutoffVoltage, 14, 2);
+                            userInput.checkEncoder(lcd, battery.cutoffVoltage, encoder, 14, 2);
+                            break;
+                    }
+
+                    if(prevSetCurrent != battery.dischargeCurrent.value){
+                        // IMPORTANT: Maintain capacity even in Enter mode
+                        accumulatedCapacity = battery.capacity;
+                        lastBatterySeconds = measurements.timer.getBatterySeconds();
+                        prevSetCurrent = battery.dischargeCurrent.value;
+                    }
+
+                    if(userInput.key == '#'){
+                        userInput.time = millis();
+                        switch (battery.changedVariable){
+                            case DischargeCurrent:
+                                userInput.cursorPosX = 15;
+                                userInput.decimalPlace = ones;
+                                battery.changedVariable = CutoffVoltage;
+                                break;
+                            case CutoffVoltage:
+                                userInput.cursorPosX = 2;
+                                userInput.decimalPlace = ones;
+                                battery.changedVariable = DischargeCurrent;
+                                break;
+                        }
+                    }
+                }
+                lcd.noCursor();
+                break;
+            default:
+                delay(10);
+                break;
+        }
     }
-		battery.displayCapacity(lcd);
-		if(measurements.voltage < battery.cutoffVoltage.value){
-			controls.loadOff(lcd);
-			measurements.timer.stop();
-		}
-
-		switch (keypad.getKey()){
-			case Menu:
-				controls.loadOff(lcd);
-				measurements.timer.stop();
-				return 0; //exit this loop, go back to menu
-				break;
-			case LoadOnOff:
-				controls.loadOnOffToggle(lcd);
-				if(controls.isLoadOn())
-					measurements.timer.start();
-				else
-					measurements.timer.stop();
-				break;
-			case Delete:
-				measurements.timer.stop();
-				measurements.timer.reset();
-				battery.capacity = 0;
-				prevCapacity = 0;
-				prevTime = 0;
-				if(controls.isLoadOn())
-					measurements.timer.start();
-				break;
-			case Enter:
-				encoder.reset();
-				userInput.time = millis();
-				while(userInput.time + 5000 > millis()){  //exit after 5s of inactivity
-					measurements.update();
-
-					sendLoadStatisticsOverSerial(measurements, battery, controls.isLoadOn());
-					
-					measurements.displayMeasurements(lcd, controls.isLoadOn());
-					controls.fanControll();
-					lcd.setCursor(7, 3);
-					lcd.print(measurements.timer.getTime());
-					if (controls.isLoadOn()){
-						battery.capacity = prevCapacity + (measurements.current * 1000) * ((measurements.timer.getTotalSeconds() - prevTime) / 3600.0);
-					}
-					battery.displayCapacity(lcd);
-					if(measurements.voltage < battery.cutoffVoltage.value){
-						controls.loadOff(lcd);
-						measurements.timer.stop();
-					}
-					controls.regulateCurrent(battery.dischargeCurrent.value);
-
-					userInput.key = keypad.getKey();
-					lcd.cursor();
-					lcd.setCursor(userInput.cursorPosX,2);
-					delay(100);
-					if(userInput.key == Menu){
-						controls.loadOff(lcd);
-						measurements.timer.stop();
-						return 0; //exit this loop, go back to menu
-					}
-					else if(userInput.key == LoadOnOff){
-						controls.loadOnOffToggle(lcd);
-						if(controls.isLoadOn())
-							measurements.timer.start();
-						else
-							measurements.timer.stop();
-					}
-
-					switch (battery.changedVariable){
-						case DischargeCurrent:
-							userInput.inputFromKeypad(lcd, battery.dischargeCurrent, 2, 2);
-							userInput.checkEncoder(lcd, battery.dischargeCurrent, encoder, 2, 2);
-							break;
-						case CutoffVoltage:
-							userInput.inputFromKeypad(lcd, battery.cutoffVoltage, 14, 2);
-							userInput.checkEncoder(lcd, battery.cutoffVoltage, encoder, 14, 2);
-							break;
-					}
-
-					if(prevSetCurrent != battery.dischargeCurrent.value){	//if changed discharge current
-						prevCapacity = battery.capacity;
-						prevTime = measurements.timer.getTotalSeconds();
-						prevSetCurrent = battery.dischargeCurrent.value;
-					}
-
-					if(userInput.key == '#'){	//toggle changed variable between dischargeCurrent and cutoffVoltage
-						userInput.time = millis();
-						switch (battery.changedVariable){
-							case DischargeCurrent:
-								userInput.cursorPosX = 15;
-								userInput.decimalPlace = ones;
-								battery.changedVariable = CutoffVoltage;
-								break;
-							
-							case CutoffVoltage:
-								userInput.cursorPosX = 2;
-								userInput.decimalPlace = ones;
-								battery.changedVariable = DischargeCurrent;
-								break;
-						}
-					}
-	
-				}
-				lcd.noCursor();
-				break;
-			default:
-				delay(10);	//wait 10ms before checking again what keypad was pressed
-				break;
-		}
-	}
 }
 
 /**
