@@ -5,10 +5,12 @@
 <img align="center" src="images/pictures/front-no-background.png">
 
 ## Overview
+
 Commercially available electronic loads often come with a hefty price tag, so I decided to build my own. 
 This project was inspired by many electronic loads, with the primary inspiration being [Scullcom's Electronic DC Load](https://www.youtube.com/watch?v=9fsf1CgnTRk&list=PLUMG8JNssPPzbr4LydbTcBrhoPlemu5Dt&ab_channel=ScullcomHobbyElectronics).
 
 ### Key Features
+
 - Supports up to **50 V** and **8 A** input
 - Power dissipation: **200 W** continuous / **300 W** peak
 - **Five operating modes**: constant current, power, resistance, step load, battery test
@@ -22,10 +24,12 @@ This project was inspired by many electronic loads, with the primary inspiration
 [![Documentation](https://img.shields.io/badge/Documentation-blue.svg?style=for-the-badge&logo=readthedocs&logoColor=white)](https://dominik-workshop.github.io/electronic-load)
 
 ## Project Status
+
 ✅ **Ready for construction!** <br>
 The project is poised for construction and operational use. However, there might be some occasional updates to address minor bugs, introduce new features, or improve the overall user experience. Stay tuned for further developments!
 
 ## Electronics
+
 The electronics architecture of the load is shown on the block diagram bellow:
 ![Block diagram](./pcb/block_diagram.drawio.svg)
 
@@ -40,14 +44,15 @@ This project contains 2 custom PCBs:
   <img align="center" width=40% src="images/renders/front_PCB_front_angle.png"> 
 </p>
 
-
 ## Mechanical
+
 The case for this project is made with 1mm thick bent sheet metal, with a 3D printed front panel.
 
 <img align="center" width=90% src="images/renders/electronic_load_angle_top_off.png"> 
 <img align="center" width=90% src="images/renders/electronic_load_back.png"> 
 
 ## PC App
+
 To complement the electronic load, a dedicated desktop application is available. The application currently focuses on enhancing the **Battery Test Mode**, with potential support for other operating modes in future updates.
 
 <img align="center" src="images/screenshots/desktop_app_battery_discharge.png"> 
@@ -55,6 +60,7 @@ To complement the electronic load, a dedicated desktop application is available.
 A pre-compiled, ready-to-use version for Windows is available for convenience in the project repository at: `desktop_app/release/windows-64bit/electronic_load_control_app.exe`
 
 ## Accuracy Measurements
+
 <details>
 <summary>Click to learn more</summary>
 
@@ -108,13 +114,12 @@ The precision of the electronic load's current and voltage measurements, as well
 ✅The current values measured by the electronic load did not deviate from the set value by more than **7 mA**. All measurements taken by the electronic load are within the range of values measured by the multimeter, considering the multimeter's measurement error.
 </details>
 
-
 ## Used Tools
-<img align="center" height="64" src="images/logos/Eagle.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center"  height="64" src="images/logos/Fusion-360.png"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center" height="64" src="images/logos/Platformio_vscode.png"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-<img align="center" height="88" src="images/logos/Qt.png">
 
+- [Autodesk EAGLE](https://www.autodesk.com/products/eagle/) - Schematic and PCB design
+- [Autodesk Fusion 360](https://www.autodesk.com/products/fusion-360/) - 3D modeling
+- [PlatformIO](https://platformio.org/) + [Visual Studio Code](https://code.visualstudio.com/) - Firmware development
+- [Qt](https://www.qt.io/) (C++) - Desktop application for monitoring and control
 
 ## Special Thanks
 
